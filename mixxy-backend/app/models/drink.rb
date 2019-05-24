@@ -4,7 +4,7 @@ class Drink < ApplicationRecord
   has_many :drinkIngredients
   has_many :ingredients, through: :drinkIngredients
 
-  def self.addDrinks(term)
+  def self.addByName(term)
     response = HTTParty.get("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=#{term}")
     data = JSON.parse(response.to_s)
     Drink.addDrinks(data)
