@@ -53,9 +53,12 @@ const {cocktails} = this.state
       <CocktailsContainer cocktails={cocktails} />
       </div>
       <h1 className="title">Welcome to Mixxy!</h1>
+      <div className="forms">
       <DrinkNameForm getDrinksName={this.getDrinksName}/>
-      <br/>
+      
       <DrinkIngredientForm getDrinksIngredient={this.getDrinksIngredient}/>
+      <br/>
+      </div>
     </div>
   );
 }
