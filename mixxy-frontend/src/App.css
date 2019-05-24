@@ -42,3 +42,63 @@
   text-align: center;
   width: 50%;
 }
+.cocktailsContainer {
+  overflow-x: auto;
+  margin-bottom: -3%;
+  /* border-style: solid;
+  border-color: orange;
+  opacity: 0.8;
+  background-color: black; */
+}
+
+.cocktail {
+  border-radius: 50%;
+  flex: 0 0 250px;
+
+}
+
+.cocktailImage {
+  border-radius: 50%;
+  width: 70%;
+  height: auto;
+}
+
+.cocktailItem {
+  display:flex;
+  height: 250px;
+  overflow-x: scroll;
+}
+
+body {
+ background: url("picture/bar2.jpg") no-repeat center center fixed;
+ background-size: cover;
+ color: white;
+}
+
+.title {
+  font-size: 100px;
+  color: orange;
+  /* -webkit-animation: flash linear 3s infinite;
+	animation: flash linear 5s infinite;
+}
+@-webkit-keyframes flash {
+	25% { opacity: 1; }
+	50% { opacity: .1; }
+	100% { opacity: 1; }
+}
+@keyframes flash {
+	25% { opacity: 1; }
+	50% { opacity: .1; }
+	100% { opacity: 1; }
+  */
+}
+
+.forms {
+  border-style: solid;
+  border-color: orange;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-top: -1%;
+  opacity: 0.8;
+  background-color: black;
+}

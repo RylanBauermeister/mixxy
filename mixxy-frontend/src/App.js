@@ -6,7 +6,12 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 
 import './App.css';
+import CocktailsContainer from './containers/cocktailsContainer'
+import DrinkNameForm from './components/drinkNameForm'
+import DrinkIngredientForm from './components/drinkIngredientForm'
 
+const nameURL = "http://localhost:3000/api/v1/searchbyname?searchTerm="
+const ingredientURL = "http://localhost:3000/api/v1/searchbyingredient?searchTerm="
 const USER_URL = "http://localhost:3000/api/v1/users"
 const LOGIN_URL = "http://localhost:3000/api/v1/login"
 
@@ -17,6 +22,7 @@ class App extends React.Component{
 
     this.state = {
       current_user: {},
+      cocktails: [],
       error: ""
     }
 
@@ -61,7 +67,30 @@ class App extends React.Component{
       })
       localStorage.token = data.jwt
     }
+  }
 
+  getDrinksName = (event) => {
+    let searchedDrink = event.target.elements['searchTerm'].value
+    fetch(nameURL + searchedDrink)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        this.setState({
+          cocktails: data
+        })
+      })
+  }
+
+  getDrinksIngredient = (event) => {
+    let searchedDrink = event.target.elements['searchTerm'].value
+    fetch(ingredientURL + searchedDrink)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        this.setState({
+          cocktails: data
+        })
+      })
   }
 
   render(){
@@ -73,7 +102,18 @@ class App extends React.Component{
           <Route exact path="/login" render={() => <Login attemptLogin={this.attemptLogin}/>}/>
           <Route exact path="/user_signup" render={() => <NewUserForm createNewUser={this.attemptLogin}/>}/>
         </Router>
+        <div className="App">
+          <div className="cocktailsContainer">
+          <CocktailsContainer cocktails={this.state.cocktails} />
+          </div>
+          <h1 className="title">Welcome to Mixxy!</h1>
+          <div className="forms">
+          <DrinkNameForm getDrinksName={this.getDrinksName}/>
 
+          <DrinkIngredientForm getDrinksIngredient={this.getDrinksIngredient}/>
+          <br/>
+          </div>
+        </div>
       </div>
     );
   }
@@ -81,3 +121,8 @@ class App extends React.Component{
 }
 
 export default App;
+
+
+// "http://www.recipepuppy.com/api/?i=#{user_ingredient}"
+//
+// ?s=margarita
