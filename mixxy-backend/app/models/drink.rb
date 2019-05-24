@@ -4,9 +4,44 @@ class Drink < ApplicationRecord
   has_many :drinkIngredients
   has_many :ingredients, through: :drinkIngredients
 
-  def self.search(term)
-    HTTParty.get("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=#{term}")
+  def self.addDrinks(term)
+    response = HTTParty.get("https://www.thecocktaildb.com/api/json/v1/1/search.php?s=#{term}")
+    data = JSON.parse(response.to_s)
+    Drink.addDrinks(data)
   end
 
+  def self.addDrinks(data)
+    data['drinks'].each do |drink|
+      newDrink = Drink.create({
+          name: drink['strDrink'],
+          category: drink['strCategory'],
+          glass: drink["strGlass"],
+          instructions: drink["strInstructions"],
+          img_url: drink["strDrinkThumb"]
+        }) unless Drink.find_by(name: drink['strDrink'])
+
+        Ingredient.generateIngredientsForDrink(drink, newDrink)
+
+    end
+  end
+
+  def self.searchByIngredient(ing)
+    response = HTTParty.get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=#{ing}")
+    data = JSON.parse(response.to_s)
+    data['drinks'].each do |drink|
+      drinkResponse = HTTParty.get("https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=#{drink['idDrink']}")
+      drinkData = JSON.parse(drinkResponse.to_s)
+      Drink.addDrinks(drinkData)
+    end
+
+    Drink.all.select { |drink|
+      !drink.ingredients.where("lower(name) like ?", "%#{ing}%").empty?
+    }
+  end
+
+
+  def self.clear
+    Drink.all.delete_all
+  end
 
 end

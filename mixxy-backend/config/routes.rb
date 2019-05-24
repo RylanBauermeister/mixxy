@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       post '/login', to: 'auth#login'
       get '/profile', to: 'users#profile'
       get '/searchbyname', to: 'drinks#searchByName'
+      get '/searchbyingredient', to: 'drinks#searchByIngredient'
     end
   end
 end
