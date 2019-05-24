@@ -1,26 +1,41 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Cocktail from './components/cocktail'
+import Form from './components/form'
 
-function App() {
+const URL = "http://localhost:3000/api/v1/searchbyname?searchTerm=gin"
+
+class App extends React.Component {
+
+// componentDidMount(){
+//
+// }
+
+
+getDrinks = (event) => {
+  let searchedDrink = event.target.elements['searchTerm'].value
+  fetch(URL)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+    })
+}
+
+  render(){
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Cocktail/>
+      <Form getDrinks={this.getDrinks}/>
     </div>
   );
 }
+}
 
 export default App;
+
+
+// "http://www.recipepuppy.com/api/?i=#{user_ingredient}"
+//
+// ?s=margarita
