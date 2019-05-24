@@ -4,7 +4,10 @@ class Cocktail extends React.Component {
 
   render(){
     return(
-      <div>hello</div>
+      <div className="cocktail">
+          <h3>{this.props.cocktail.name}</h3>
+          <img className="cocktailImage" src={this.props.cocktail.img_url}/>
+      </div>
     )
   }
 

@@ -1,33 +1,61 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Cocktail from './components/cocktail'
-import Form from './components/form'
+import CocktailsContainer from './containers/cocktailsContainer'
+import DrinkNameForm from './components/drinkNameForm'
+import DrinkIngredientForm from './components/drinkIngredientForm'
 
-const URL = "http://localhost:3000/api/v1/searchbyname?searchTerm=gin"
+const nameURL = "http://localhost:3000/api/v1/searchbyname?searchTerm="
+const ingredientURL = "http://localhost:3000/api/v1/searchbyingredient?searchTerm="
+
 
 class App extends React.Component {
 
-// componentDidMount(){
-//
-// }
+constructor(){
+  super()
+    this.state = {
+      cocktails: []
+    }
+  }
 
 
-getDrinks = (event) => {
+getDrinksName = (event) => {
   let searchedDrink = event.target.elements['searchTerm'].value
-  fetch(URL)
+  fetch(nameURL + searchedDrink)
     .then(res => res.json())
     .then(data => {
       console.log(data)
+      this.setState({
+        cocktails: data
+      })
+    })
+}
+
+getDrinksIngredient = (event) => {
+  let searchedDrink = event.target.elements['searchTerm'].value
+  fetch(ingredientURL + searchedDrink)
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+      this.setState({
+        cocktails: data
+      })
     })
 }
 
   render(){
 
+const {cocktails} = this.state
+
   return (
     <div className="App">
-      <Cocktail/>
-      <Form getDrinks={this.getDrinks}/>
+      <div className="cocktailsContainer">
+      <CocktailsContainer cocktails={cocktails} />
+      </div>
+      <h1 className="title">Welcome to Mixxy!</h1>
+      <DrinkNameForm getDrinksName={this.getDrinksName}/>
+      <br/>
+      <DrinkIngredientForm getDrinksIngredient={this.getDrinksIngredient}/>
     </div>
   );
 }

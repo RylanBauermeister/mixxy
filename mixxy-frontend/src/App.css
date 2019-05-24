@@ -31,3 +31,36 @@
     transform: rotate(360deg);
   }
 }
+
+.cocktailsContainer {
+  overflow-x: auto;
+}
+
+.cocktail {
+  border-radius: 50%;
+  flex: 0 0 250px;
+
+}
+
+.cocktailImage {
+  border-radius: 50%;
+  width: 70%;
+  height: auto;
+}
+
+.cocktailItem {
+  display:flex;
+  height: 250px;
+  overflow-x: scroll;
+}
+
+body {
+ background: url("picture/bar2.jpg") no-repeat center center fixed;
+ background-size: cover;
+ color: white;
+}
+
+.title {
+  font-size: 100px;
+  color: orange;
+}

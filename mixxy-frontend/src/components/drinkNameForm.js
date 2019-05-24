@@ -1,6 +1,6 @@
 import React from 'react'
 
-class Form extends React.Component {
+class drinkNameForm extends React.Component {
 
   constructor(){
     super()
@@ -17,12 +17,16 @@ class Form extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    this.props.getDrinks(event)
+    this.props.getDrinksName(event)
+    this.setState({
+      searchTerm: ""
+    })
   }
 
   render(){
     return(
       <div>
+      <h1>Search for a drink by name!</h1>
       <form onSubmit={this.handleSubmit}>
       <input
       type="text"
@@ -42,4 +46,4 @@ class Form extends React.Component {
 
 }
 
-export default Form
+export default drinkNameForm
