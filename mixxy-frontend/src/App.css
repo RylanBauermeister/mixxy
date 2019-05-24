@@ -39,7 +39,7 @@
 }
 
 .user-info-form {
-  text-align: center;
+  margin: 20px auto;
   width: 50%;
 }
 .cocktailsContainer {
@@ -78,6 +78,7 @@ body {
 .title {
   font-size: 100px;
   color: orange;
+  margin: 25px;
   /* -webkit-animation: flash linear 3s infinite;
 	animation: flash linear 5s infinite;
 }
@@ -91,6 +92,10 @@ body {
 	50% { opacity: .1; }
 	100% { opacity: 1; }
   */
+}
+
+.subtitle {
+  font-size: 3em;
 }
 
 .forms {

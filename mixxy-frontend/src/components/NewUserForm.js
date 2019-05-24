@@ -23,10 +23,21 @@ export default class NewUserForm extends Component {
 
 
   render(){
-    return <form onSubmit={this.handleSubmit}>
-      <input type="text" name="username" placeholder="username"/>
-      <input type="password" name="password" placeholder="password"/>
-      <input type="submit" value="Create User"/>
-    </form>;
+    return <div>
+            <h2 className="title subtitle">Create An Account With Us</h2>
+            <form className="ui center form user-info-form" onSubmit={this.handleSubmit}>
+              <div className="two fields">
+                <div className="field">
+                  <label>Username</label>
+                  <input type="text" name="username" placeholder="username"/>
+                </div>
+                <div className="field">
+                  <label>Password</label>
+                  <input type="password" name="password" placeholder="password"/>
+                </div>
+              </div>
+              <input className="ui submit button" type="submit" value="Create Account"/>
+            </form>
+          </div>
   }
 }

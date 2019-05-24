@@ -3,12 +3,11 @@ import Login from './components/login';
 import Banner from './components/Banner'
 import NewUserForm from './components/NewUserForm'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import ReactDOM from 'react-dom';
 
 import './App.css';
-import CocktailsContainer from './containers/cocktailsContainer'
-import DrinkNameForm from './components/drinkNameForm'
-import DrinkIngredientForm from './components/drinkIngredientForm'
+// import CocktailsContainer from './containers/cocktailsContainer'
+// import DrinkNameForm from './components/drinkNameForm'
+// import DrinkIngredientForm from './components/drinkIngredientForm'
 
 const nameURL = "http://localhost:3000/api/v1/searchbyname?searchTerm="
 const ingredientURL = "http://localhost:3000/api/v1/searchbyingredient?searchTerm="
@@ -29,6 +28,7 @@ class App extends React.Component{
     this.createNewUser = this.createNewUser.bind(this)
     this.attemptLogin = this.attemptLogin.bind(this)
     this.setActiveUser = this.setActiveUser.bind(this)
+    this.logout = this.logout.bind(this)
   }
 
 
@@ -45,7 +45,6 @@ class App extends React.Component{
   }
 
   attemptLogin(user){
-    console.log("doing this")
     fetch(LOGIN_URL, {
       method: "POST",
       headers: {
@@ -67,6 +66,13 @@ class App extends React.Component{
       })
       localStorage.token = data.jwt
     }
+  }
+
+  logout(){
+    this.setState({
+      current_user: {}
+    })
+    delete localStorage.token
   }
 
   getDrinksName = (event) => {
@@ -98,11 +104,13 @@ class App extends React.Component{
       <div className="App">
 
         <Router>
-          <Route path='/' render={() => <Banner current_user={this.state.current_user} error={this.state.error}/>}/>
+          <Route path='/' render={() => <Banner current_user={this.state.current_user}
+                                                error={this.state.error}
+                                                logout={this.logout}/>}/>
           <Route exact path="/login" render={() => <Login attemptLogin={this.attemptLogin}/>}/>
-          <Route exact path="/user_signup" render={() => <NewUserForm createNewUser={this.attemptLogin}/>}/>
+          <Route exact path="/user_signup" render={() => <NewUserForm createNewUser={this.createNewUser}/>}/>
         </Router>
-        <div className="App">
+        {/* <div className="App">
           <div className="cocktailsContainer">
           <CocktailsContainer cocktails={this.state.cocktails} />
           </div>
@@ -113,7 +121,7 @@ class App extends React.Component{
           <DrinkIngredientForm getDrinksIngredient={this.getDrinksIngredient}/>
           <br/>
           </div>
-        </div>
+        </div> */}
       </div>
     );
   }

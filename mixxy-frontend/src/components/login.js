@@ -24,7 +24,8 @@ export default class Login extends Component {
   render(){
     return (
       <div>
-        <form className="ui form user-info-form" onSubmit={this.handleSubmit}>
+        <h2 className="title subtitle">Log in to Mixxy</h2>
+        <form className="ui center form user-info-form" onSubmit={this.handleSubmit}>
           <div className="two fields">
             <div className="field">
               <label>Username</label>
@@ -35,7 +36,7 @@ export default class Login extends Component {
               <input type="password" name="password" placeholder="password"/>
             </div>
           </div>
-          <input type="submit" value="Log In"/>
+          <input className="ui submit button" type="submit" value="Log In"/>
         </form>
       </div>
     )

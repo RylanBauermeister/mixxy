@@ -11,7 +11,6 @@ export default class Banner extends Component {
   }
 
   userIsLoggedIn(){
-    console.log(this.props.current_user.username)
     return this.props.current_user.username
   }
 
@@ -20,10 +19,10 @@ export default class Banner extends Component {
     return <div>
 
       <div className="ui secondary pointing menu">
-        <a className="active item">
+        <a href={null} className="active item">
           Home
         </a>
-        <a className="item">
+        <a href={null} className="item">
           My Drinks
         </a>
         <div className="right menu">
@@ -34,9 +33,8 @@ export default class Banner extends Component {
             <Link to="/login"><div className="ui button">Log-in</div></Link>
           </div></>
           }
-          {
-            this.userIsLoggedIn() && <a className="item">Welcome, {this.props.current_user.username}</a>
-          }
+          { this.userIsLoggedIn() && <div className="item">Welcome, {this.props.current_user.username}</div>}
+          {this.userIsLoggedIn() && <div className="item"><div onClick={this.props.logout} className="ui button">Log Out</div></div>}
         </div>
       </div>
       {this.props.error !== "" && <div className="error-message">Invalid Username/Password Combination</div>}
