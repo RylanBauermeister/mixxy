@@ -31,3 +31,14 @@
     transform: rotate(360deg);
   }
 }
+
+.error-message {
+  background-color: red;
+  line-height: 3em;
+  color: white;
+}
+
+.user-info-form {
+  text-align: center;
+  width: 50%;
+}
