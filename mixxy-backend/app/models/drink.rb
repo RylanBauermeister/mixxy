@@ -11,16 +11,18 @@ class Drink < ApplicationRecord
   end
 
   def self.addDrinks(data)
+    return if !data['drinks']
     data['drinks'].each do |drink|
+      next if Drink.where('lower(name) like ?', "%#{drink['strDrink'].downcase}%").exists?
       newDrink = Drink.create({
           name: drink['strDrink'],
           category: drink['strCategory'],
           glass: drink["strGlass"],
           instructions: drink["strInstructions"],
           img_url: drink["strDrinkThumb"]
-        }) unless Drink.find_by(name: drink['strDrink'])
+        })
 
-        Ingredient.generateIngredientsForDrink(drink, newDrink)
+      Ingredient.generateIngredientsForDrink(drink, newDrink)
 
     end
   end

@@ -7,19 +7,24 @@ class Ingredient < ApplicationRecord
   end
 
   def self.generateIngredientsForDrink(data, drink)
-    i = 1
 
+    i = 1
     while data["strIngredient#{i}"] && data["strIngredient#{i}"] != "" do
+
       ingredient = Ingredient.find_by(name: data["strIngredient#{i}"])
-      ingredient = Ingredient.create({
-        name: data["strIngredient#{i}"],
-        amount: data["strMeasure#{i}"],
-      }) if !ingredient
+
+      if !ingredient
+        ingredient = Ingredient.create({
+          name: data["strIngredient#{i}"],
+          amount: data["strMeasure#{i}"],
+        })
+      end
 
       DrinkIngredient.create({
         ingredient: ingredient,
         drink: drink
       })
+
       i += 1
     end
   end
