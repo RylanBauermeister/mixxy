@@ -11,6 +11,10 @@ class Api::V1::AuthController < ApplicationController
     end
   end
 
+  def validate
+    render json: { user: UserSerializer.new(current_user)}, status: :ok
+  end
+
   private
 
   def user_login_params

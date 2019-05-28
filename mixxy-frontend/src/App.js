@@ -5,6 +5,7 @@ import NewUserForm from './components/NewUserForm'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import {withRouter} from 'react-router';
 import Dashboard from './containers/Dashboard'
+import EditUserContainer from './containers/EditUserContainer'
 import './App.css';
 import UserDrinks from './containers/userDrinks'
 
@@ -27,6 +28,7 @@ class App extends React.Component{
     this.attemptLogin = this.attemptLogin.bind(this)
     this.setActiveUser = this.setActiveUser.bind(this)
     this.logout = this.logout.bind(this)
+    this.displayUserDrinks();
   }
 
 
@@ -62,7 +64,8 @@ class App extends React.Component{
         current_user: data.user,
         error: ""
       })
-      localStorage.token = data.jwt
+      if(data.jwt){localStorage.token = data.jwt}
+
       this.props.history.push('/dashboard')
     }
   }
@@ -76,11 +79,11 @@ class App extends React.Component{
   }
 
   displayUserDrinks = () => {
-    fetch("http://localhost:3000/api/v1/profile",  {
+    if(!localStorage.token){return}
+    fetch("http://localhost:3000/api/v1/profile", {
+      method: "GET",
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.token
+        'Authorization': "Bearer " + localStorage.token
       }
     })
     .then(res => res.json())
@@ -90,6 +93,7 @@ class App extends React.Component{
         hasClickedMyDrinks: true
       })
       console.log(data)
+      this.setActiveUser(data)
     })
   }
 
@@ -109,13 +113,12 @@ class App extends React.Component{
                                               logout={this.logout}
                                               displayUserDrinks={this.displayUserDrinks}
                                               />}/>
-
-        <main class="main">
+        <main className="main">
           <Route exact path="/login" render={() => <Login attemptLogin={this.attemptLogin}/>}/>
           <Route exact path="/user_signup" render={() => <NewUserForm createNewUser={this.createNewUser}/>}/>
           {this.renderUserDrinks()}
-          <Route exact path="/dashboard" render={() =>  <Dashboard/>} />
-
+          <Route exact path="/dashboard" render={() =>  <Dashboard />} />
+          <Route exact path="/update_profile" render={() => <EditUserContainer current_user={this.state.current_user}/>} />
         </main>
       </div>
     );
