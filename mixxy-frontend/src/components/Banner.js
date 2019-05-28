@@ -19,7 +19,7 @@ class Banner extends Component {
     return <div className="ui attached top">
 
       <div className="ui inverted pointing menu">
-        <a href={null} className="active item">
+        <a href={null} className="active item" onClick={this.props.returnMainMenu}>
           Home
         </a>
         <a href={null} className="item" onClick={this.props.displayUserDrinks}>
