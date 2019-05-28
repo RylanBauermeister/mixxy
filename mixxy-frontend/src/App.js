@@ -55,12 +55,21 @@ setCurrentCocktail = (cocktail) => {
 
 }
 
+returnMainMenu = () => {
+  console.log("hello")
+  this.setState({
+    currentCocktail: null,
+    lookingAtSingleCocktail: false
+  })
+}
+
 
 renderDetailedView = () => {
   const {cocktails, currentCocktail} = this.state
   if(this.state.lookingAtSingleCocktail === true) {
     return <DetailedView
             currentCocktail={currentCocktail}
+            returnMainMenu={this.returnMainMenu}
             />
   } else {
     return <div className="App">

@@ -69,7 +69,7 @@ body {
   font-size: 100px;
   color: orange;
   /* -webkit-animation: flash linear 3s infinite;
-	animation: flash linear 5s infinite;
+	animation: flash linear 2.5s infinite;
 }
 @-webkit-keyframes flash {
 	25% { opacity: 1; }
@@ -79,8 +79,8 @@ body {
 @keyframes flash {
 	25% { opacity: 1; }
 	50% { opacity: .1; }
-	100% { opacity: 1; }
-  */
+	100% { opacity: 1; } */
+
 }
 
 .forms {
@@ -103,10 +103,14 @@ body {
   opacity: 0.9;
   margin-left: 30%;
   margin-right: 30%;
-  margin-top: 1%;
+  margin-bottom: 3%;
 }
 
 .detailedViewImg {
   height: 50%;
   width: 50%;
+}
+
+.button {
+  padding: 5%;
 }
