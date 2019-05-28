@@ -7,7 +7,10 @@ class CocktailsContainer extends React.Component {
     return(
       <div className="cocktailItem">{
         this.props.cocktails.map((cocktail)=>{
-          return <Cocktail cocktail={cocktail}/>
+          return <Cocktail
+                  cocktail={cocktail}
+                  setCurrentCocktail={this.props.setCurrentCocktail}
+                  />
         })
       }</div>
     )
