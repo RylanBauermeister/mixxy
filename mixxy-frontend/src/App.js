@@ -17,7 +17,8 @@ class App extends React.Component{
 
     this.state = {
       current_user: {},
-      error: ""
+      error: "",
+      userDrinks: {}
     }
 
     this.createNewUser = this.createNewUser.bind(this)
@@ -72,16 +73,37 @@ class App extends React.Component{
     this.props.history.push('/login')
   }
 
+  displayUserDrinks = () => {
+    fetch("http://localhost:3000/api/v1/profile",  {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.token
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      this.setState({
+        userDrinks: data.user.drinks
+      })
+    })
+  }
+
   render(){
+
+const {userDrinks} = this.state
+
     return (
       <div className="App">
         <Route path='/' render={() => <Banner current_user={this.state.current_user}
                                               error={this.state.error}
-                                              logout={this.logout}/>}/>
+                                              logout={this.logout}
+                                              displayUserDrinks={this.displayUserDrinks}
+                                              />}/>
         <main class="main">
           <Route exact path="/login" render={() => <Login attemptLogin={this.attemptLogin}/>}/>
           <Route exact path="/user_signup" render={() => <NewUserForm createNewUser={this.createNewUser}/>}/>
-          <Route exact path="/dashboard" render={() =>  <Dashboard />} />
+          <Route exact path="/dashboard" render={() =>  <Dashboard userDrinks={userDrinks}/>} />
         </main>
 
       </div>

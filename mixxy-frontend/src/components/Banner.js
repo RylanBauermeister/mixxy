@@ -22,7 +22,7 @@ export default class Banner extends Component {
         <a href={null} className="active item">
           Home
         </a>
-        <a href={null} className="item">
+        <a href={null} className="item" onClick={this.props.displayUserDrinks}>
           My Drinks
         </a>
         <div className="right menu">
