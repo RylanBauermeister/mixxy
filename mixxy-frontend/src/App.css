@@ -147,3 +147,19 @@
 .button {
 
 }
+
+.userCocktail {
+  border-radius: 50%;
+  flex: 0 0 250px;
+  margin-top: 5%;
+
+}
+
+.userCocktailItem {
+  display:flex;
+  height: 250px;
+  overflow-x: scroll;
+  margin-bottom: -15%;
+  background-color: black;
+  opacity: 0.8;
+}

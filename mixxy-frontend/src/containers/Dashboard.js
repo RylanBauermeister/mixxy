@@ -76,6 +76,7 @@ export default class Dashboard extends Component {
     })
     }
 
+
   renderDetailedView = () => {
     const {cocktails, currentCocktail} = this.state
     if(this.state.lookingAtSingleCocktail === true) {
@@ -102,6 +103,10 @@ export default class Dashboard extends Component {
         </div>
     }
   }
+
+  // renderUserDrinks = () => {
+  //   console.log
+  // }
 
   render(){
     if(!localStorage.token){
