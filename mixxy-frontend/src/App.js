@@ -3,14 +3,10 @@ import Login from './components/login';
 import Banner from './components/Banner'
 import NewUserForm from './components/NewUserForm'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-
+import {withRouter} from 'react-router';
+import Dashboard from './containers/Dashboard'
 import './App.css';
-// import CocktailsContainer from './containers/cocktailsContainer'
-// import DrinkNameForm from './components/drinkNameForm'
-// import DrinkIngredientForm from './components/drinkIngredientForm'
 
-const nameURL = "http://localhost:3000/api/v1/searchbyname?searchTerm="
-const ingredientURL = "http://localhost:3000/api/v1/searchbyingredient?searchTerm="
 const USER_URL = "http://localhost:3000/api/v1/users"
 const LOGIN_URL = "http://localhost:3000/api/v1/login"
 
@@ -21,7 +17,6 @@ class App extends React.Component{
 
     this.state = {
       current_user: {},
-      cocktails: [],
       error: ""
     }
 
@@ -65,6 +60,7 @@ class App extends React.Component{
         error: ""
       })
       localStorage.token = data.jwt
+      this.props.history.push('/dashboard')
     }
   }
 
@@ -73,64 +69,25 @@ class App extends React.Component{
       current_user: {}
     })
     delete localStorage.token
-  }
-
-  getDrinksName = (event) => {
-    let searchedDrink = event.target.elements['searchTerm'].value
-    fetch(nameURL + searchedDrink)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        this.setState({
-          cocktails: data
-        })
-      })
-  }
-
-  getDrinksIngredient = (event) => {
-    let searchedDrink = event.target.elements['searchTerm'].value
-    fetch(ingredientURL + searchedDrink)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        this.setState({
-          cocktails: data
-        })
-      })
+    this.props.history.push('/login')
   }
 
   render(){
     return (
       <div className="App">
-
-        <Router>
-          <Route path='/' render={() => <Banner current_user={this.state.current_user}
-                                                error={this.state.error}
-                                                logout={this.logout}/>}/>
+        <Route path='/' render={() => <Banner current_user={this.state.current_user}
+                                              error={this.state.error}
+                                              logout={this.logout}/>}/>
+        <main class="main">
           <Route exact path="/login" render={() => <Login attemptLogin={this.attemptLogin}/>}/>
           <Route exact path="/user_signup" render={() => <NewUserForm createNewUser={this.createNewUser}/>}/>
-        </Router>
-        {/* <div className="App">
-          <div className="cocktailsContainer">
-          <CocktailsContainer cocktails={this.state.cocktails} />
-          </div>
-          <h1 className="title">Welcome to Mixxy!</h1>
-          <div className="forms">
-          <DrinkNameForm getDrinksName={this.getDrinksName}/>
+          <Route exact path="/dashboard" render={() =>  <Dashboard />} />
+        </main>
 
-          <DrinkIngredientForm getDrinksIngredient={this.getDrinksIngredient}/>
-          <br/>
-          </div>
-        </div> */}
       </div>
     );
   }
 
 }
 
-export default App;
-
-
-// "http://www.recipepuppy.com/api/?i=#{user_ingredient}"
-//
-// ?s=margarita
+export default withRouter(App);

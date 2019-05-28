@@ -16,9 +16,9 @@ export default class Banner extends Component {
 
 
   render(){
-    return <div>
+    return <div className="ui attached top">
 
-      <div className="ui secondary pointing menu">
+      <div className="ui inverted pointing menu">
         <a href={null} className="active item">
           Home
         </a>
