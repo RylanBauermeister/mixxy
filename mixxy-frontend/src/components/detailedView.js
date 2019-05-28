@@ -13,6 +13,7 @@ class DetailedView extends React.Component {
           </h4>
           <h4>Instructions: {this.props.currentCocktail.instructions}</h4>
           <button className="button" onClick={this.props.returnMainMenu}>Go back to drinks</button>
+          <button onClick={()=> this.props.addDrink(this.props.currentCocktail)}>Add drink</button>
       </div>
     )
   }
