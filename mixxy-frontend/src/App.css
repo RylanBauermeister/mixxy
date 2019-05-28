@@ -92,3 +92,21 @@ body {
   opacity: 0.8;
   background-color: black;
 }
+
+.detailedView {
+  text-align: center;
+  color: orange;
+  font-size: 150%;
+  border-style: solid;
+  border-color: orange;
+  background-color: black;
+  opacity: 0.9;
+  margin-left: 30%;
+  margin-right: 30%;
+  margin-top: 1%;
+}
+
+.detailedViewImg {
+  height: 50%;
+  width: 50%;
+}

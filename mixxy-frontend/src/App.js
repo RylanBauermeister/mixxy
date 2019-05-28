@@ -4,6 +4,7 @@ import './App.css';
 import CocktailsContainer from './containers/cocktailsContainer'
 import DrinkNameForm from './components/drinkNameForm'
 import DrinkIngredientForm from './components/drinkIngredientForm'
+import DetailedView from './components/detailedView'
 
 const nameURL = "http://localhost:3000/api/v1/searchbyname?searchTerm="
 const ingredientURL = "http://localhost:3000/api/v1/searchbyingredient?searchTerm="
@@ -14,7 +15,9 @@ class App extends React.Component {
 constructor(){
   super()
     this.state = {
-      cocktails: []
+      cocktails: [],
+      lookingAtSingleCocktail: false,
+      currentCocktail: {}
     }
   }
 
@@ -43,28 +46,55 @@ getDrinksIngredient = (event) => {
     })
 }
 
+setCurrentCocktail = (cocktail) => {
+  console.log("hello")
+  this.setState({
+    currentCocktail: cocktail,
+    lookingAtSingleCocktail: true
+  })
+
+}
+
+
+renderDetailedView = () => {
+  const {cocktails, currentCocktail} = this.state
+  if(this.state.lookingAtSingleCocktail === true) {
+    return <DetailedView
+            currentCocktail={currentCocktail}
+            />
+  } else {
+    return <div className="App">
+        <div className="cocktailsContainer">
+        <CocktailsContainer
+          cocktails={cocktails}
+          setCurrentCocktail={this.setCurrentCocktail}
+          />
+        </div>
+        <h1 className="title">Welcome to Mixxy!</h1>
+        <div className="forms">
+        <DrinkNameForm getDrinksName={this.getDrinksName}/>
+
+        <DrinkIngredientForm getDrinksIngredient={this.getDrinksIngredient}/>
+        <br/>
+        </div>
+      </div>
+  }
+}
+
   render(){
 
-const {cocktails} = this.state
+
 
   return (
-    <div className="App">
-      <div className="cocktailsContainer">
-      <CocktailsContainer cocktails={cocktails} />
-      </div>
-      <h1 className="title">Welcome to Mixxy!</h1>
-      <div className="forms">
-      <DrinkNameForm getDrinksName={this.getDrinksName}/>
-      
-      <DrinkIngredientForm getDrinksIngredient={this.getDrinksIngredient}/>
-      <br/>
-      </div>
+    <div>
+      {this.renderDetailedView()}
     </div>
   );
 }
 }
 
 export default App;
+
 
 
 // "http://www.recipepuppy.com/api/?i=#{user_ingredient}"
