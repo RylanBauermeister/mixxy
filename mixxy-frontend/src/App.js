@@ -7,6 +7,8 @@ import {withRouter} from 'react-router';
 import Dashboard from './containers/Dashboard'
 import EditUserContainer from './containers/EditUserContainer'
 import './App.css';
+import UserDrinks from './containers/userDrinks'
+import UserDrinkDetailedView from './components/userDrinkDetailedView'
 
 const USER_URL = "http://localhost:3000/api/v1/users"
 const LOGIN_URL = "http://localhost:3000/api/v1/login"
@@ -18,7 +20,11 @@ class App extends React.Component{
 
     this.state = {
       current_user: {},
-      error: ""
+      error: "",
+      userDrinks: [],
+      hasClickedMyDrinks: false,
+      currentCocktail: {},
+      lookingAtSingleCocktail: false
     }
 
     this.createNewUser = this.createNewUser.bind(this)
@@ -85,7 +91,7 @@ class App extends React.Component{
     this.props.history.push('/login')
   }
 
-  renewState(){
+  displayUserDrinks = () => {
     if(!localStorage.token){return}
     fetch("http://localhost:3000/api/v1/profile", {
       method: "GET",
@@ -124,23 +130,78 @@ class App extends React.Component{
       }
     })
     .then( () => this.logout())
+    .then(data => {
+      this.setState({
+        userDrinks: data.user.drinks,
+        hasClickedMyDrinks: true
+      })
+      console.log(data)
+      this.setActiveUser(data)
+    })
+  }
+
+  setCurrentCocktail = (cocktail) => {
+    console.log("hello")
+    this.setState({
+      currentCocktail: cocktail,
+      lookingAtSingleCocktail: true
+    })
+
+  }
+
+  renderUserDrinks = () => {
+    const {userDrinks} = this.state
+    if(this.state.hasClickedMyDrinks === true) {
+      return <UserDrinks
+              userDrinks={userDrinks}
+              setCurrentCocktail={this.setCurrentCocktail}
+              />
+    }
+  }
+
+  renderDetailedView = () => {
+    const {currentCocktail} = this.state
+    if(this.state.lookingAtSingleCocktail === true) {
+      return <UserDrinkDetailedView
+              currentCocktail={currentCocktail}
+              returnMyDrinks={this.returnMyDrinks}
+              />
+    }
+  }
+
+  returnMyDrinks = () => {
+    this.setState({
+      currentCocktail: null,
+      lookingAtSingleCocktail: false
+    })
+  }
+
+  returnMainMenu = () => {
+    this.setState({
+      hasClickedMyDrinks: false
+    })
   }
 
   render(){
+
     return (
       <div className="App">
         <Route path='/' render={() => <Banner current_user={this.state.current_user}
                                               error={this.state.error}
-                                              logout={this.logout}/>}/>
+                                              logout={this.logout}
+                                              displayUserDrinks={this.displayUserDrinks}
+                                              returnMainMenu={this.returnMainMenu}
+                                              />}/>
         <main className="main">
           <Route exact path="/login" render={() => <Login attemptLogin={this.attemptLogin}/>}/>
           <Route exact path="/user_signup" render={() => <NewUserForm createNewUser={this.createNewUser}/>}/>
+          {this.renderDetailedView()}
+          {this.renderUserDrinks()}
           <Route exact path="/dashboard" render={() =>  <Dashboard />} />
           <Route exact path="/update_profile" render={() => <EditUserContainer current_user={this.state.current_user}
                                                                                updateUser={this.updateUser}
                                                                                deleteUser={this.deleteUser}/>} />
         </main>
-
       </div>
     );
   }
