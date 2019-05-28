@@ -6,7 +6,24 @@ export default class EditUserForm extends Component {
     super(props)
     this.state = {
     }
+
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
+
+  handleSubmit(ev){
+    ev.preventDefault();
+    let user = {
+      id: this.props.current_user.id,
+      username: ev.target.elements['username'].value
+    };
+    console.log(ev.target.elements)
+    if(ev.target.elements['password'].value !== ""){
+      user.password = ev.target.elements['password'].value
+    }
+
+    this.props.updateUser(user)
+  }
+
 
   render(){
     return <div className="user-form">
@@ -17,15 +34,13 @@ export default class EditUserForm extends Component {
                   <input type="text" name="username" defaultValue={this.props.current_user.username} placeholder="username"/>
                 </div>
                 <div className="field">
-                  <label>Old Password</label>
-                  <input type="password" name="password" placeholder="password"/>
-                </div>
-                <div className="field">
                   <label>New Password</label>
                   <input type="password" name="password" placeholder="password"/>
                 </div>
               <input className="ui submit button" type="submit" value="Update Account"/>
             </form>
+            <button onClick={() => this.props.deleteUser(this.props.current_user.id)}
+                    className="negative ui button">Delete Account</button>
           </div>
   }
 }

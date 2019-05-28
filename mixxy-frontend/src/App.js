@@ -25,6 +25,8 @@ class App extends React.Component{
     this.attemptLogin = this.attemptLogin.bind(this)
     this.setActiveUser = this.setActiveUser.bind(this)
     this.logout = this.logout.bind(this)
+    this.updateUser = this.updateUser.bind(this)
+    this.deleteUser = this.deleteUser.bind(this)
     this.renewState();
   }
 
@@ -38,7 +40,10 @@ class App extends React.Component{
       body: JSON.stringify({user})
     })
     .then(res => res.json())
-    .then(this.setActiveUser)
+    .then(data => {
+      this.setActiveUser(data)
+      this.props.history.push('/dashboard')
+    })
   }
 
   attemptLogin(user){
@@ -50,11 +55,18 @@ class App extends React.Component{
       body: JSON.stringify({user})
     })
     .then(res => res.json())
-    .then(this.setActiveUser)
+    .then(data => {
+      this.setActiveUser(data)
+      if(!data.message){
+        this.props.history.push('/dashboard')
+      }
+    })
   }
 
-  setActiveUser(data){
-    if(data.message){
+  setActiveUser(data, mode="hard"){
+    if(data.message && mode === "soft"){
+      return
+    } else if(data.message){
       this.setState({error: data.message})
     } else {
       this.setState({
@@ -62,8 +74,6 @@ class App extends React.Component{
         error: ""
       })
       if(data.jwt){localStorage.token = data.jwt}
-
-      this.props.history.push('/dashboard')
     }
   }
 
@@ -80,11 +90,40 @@ class App extends React.Component{
     fetch("http://localhost:3000/api/v1/profile", {
       method: "GET",
       headers: {
-        'Authorization': "Bearer " + localStorage.token
+        'Authorization': "Bearer " + localStorage.token,
       }
     })
     .then(res => res.json())
-    .then(this.setActiveUser)
+    .then(data => {this.setActiveUser(data, "soft")})
+  }
+
+  updateUser(user){
+    fetch(USER_URL + `/${user.id}`, {
+      method: "PATCH",
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': "Bearer " + localStorage.token,
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        user
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      this.setActiveUser(data)
+      this.props.history.push('/dashboard')
+    })
+  }
+
+  deleteUser(id){
+    fetch(USER_URL + `/${id}`, {
+      method: "DELETE",
+      headers: {
+        'Authorization': "Bearer " + localStorage.token
+      }
+    })
+    .then( () => this.logout())
   }
 
   render(){
@@ -97,7 +136,9 @@ class App extends React.Component{
           <Route exact path="/login" render={() => <Login attemptLogin={this.attemptLogin}/>}/>
           <Route exact path="/user_signup" render={() => <NewUserForm createNewUser={this.createNewUser}/>}/>
           <Route exact path="/dashboard" render={() =>  <Dashboard />} />
-          <Route exact path="/update_profile" render={() => <EditUserContainer current_user={this.state.current_user}/>} />
+          <Route exact path="/update_profile" render={() => <EditUserContainer current_user={this.state.current_user}
+                                                                               updateUser={this.updateUser}
+                                                                               deleteUser={this.deleteUser}/>} />
         </main>
 
       </div>
