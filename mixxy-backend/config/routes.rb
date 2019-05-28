@@ -5,6 +5,8 @@ Rails.application.routes.draw do
       resources :users, only: [:create]
       post '/login', to: 'auth#login'
       get '/profile', to: 'users#profile'
+      get '/shelf/:id', to: 'users#shelf'
+      get 'add_drink', to: 'users#addDrink'
       get '/searchbyname', to: 'drinks#searchByName'
       get '/searchbyingredient', to: 'drinks#searchByIngredient'
     end

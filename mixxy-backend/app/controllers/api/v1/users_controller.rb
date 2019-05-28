@@ -11,11 +11,33 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def shelf
+    @user = User.find(params[:id])
+    render json: { drinks: @user.drinks }, status: :ok
+  end
+
+  def addDrink
+    @user = current_user
+    @drink = Drink.find(user_drink_params[:drink_id])
+    if @user && @drink
+      UserDrink.create(user: @user, drink: @drink)
+      render json: { user: UserSerializer.new(@user)}, status: :accepted
+    else
+      render json: { error: 'Invalid drink id.'}, status: :not_acceptable
+    end
+  end
+
   def profile
     render json: { user: UserSerializer.new(current_user)}, status: :accepted
   end
 
+
+  private
   def user_params
     params.require(:user).permit(:username, :password)
+  end
+
+  def user_drink_params
+    params.permit(:user_id, :drink_id)
   end
 end

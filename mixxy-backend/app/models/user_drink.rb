@@ -1,4 +1,4 @@
-class UserDrinks < ApplicationRecord
+class UserDrink < ApplicationRecord
   belongs_to :user
   belongs_to :drink
 
