@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 
-export default class Banner extends Component {
+class Banner extends Component {
 
   constructor(props){
     super(props)
@@ -34,10 +34,18 @@ export default class Banner extends Component {
           </div></>
           }
           { this.userIsLoggedIn() && <div className="item">Welcome, {this.props.current_user.username}</div>}
-          {this.userIsLoggedIn() && <div className="item"><div onClick={this.props.logout} className="ui button">Log Out</div></div>}
+          {this.userIsLoggedIn() && <div className="item">
+                                        <div onClick={() => this.props.history.push('/update_profile')} className="ui button">
+                                          Settings
+                                        </div>
+                                    </div>}
+          {this.userIsLoggedIn() && <div className="item"><div onClick={this.props.logout} className="ui primary button">Log Out</div></div>}
+
         </div>
       </div>
       {this.props.error !== "" && <div className="error-message">Invalid Username/Password Combination</div>}
     </div>;
   }
 }
+
+export default withRouter(Banner)

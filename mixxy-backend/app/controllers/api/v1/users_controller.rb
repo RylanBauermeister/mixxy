@@ -11,6 +11,10 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def update
+
+  end
+
   def shelf
     @user = User.find(params[:id])
     render json: { drinks: @user.drinks }, status: :ok
@@ -27,8 +31,19 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  def removeDrink
+    @user = current_user
+    @drink = Drink.find(user_drink_params[:drink_id])
+    if @user && @drink
+      UserDrink.find_by(user: @user, drink: @drink).delete
+      render json: { user: UserSerializer.new(@user)}, status: :accepted
+    else
+      render json: { error: 'Invalid drink id.'}, status: :not_acceptable
+    end
+  end
+
   def profile
-    render json: { user: UserSerializer.new(current_user)}, status: :accepted
+    render json: { user: UserSerializer.new(current_user)}, include: '**', status: :accepted
   end
 
 
