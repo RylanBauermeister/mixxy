@@ -15,8 +15,7 @@ export default class Dashboard extends Component {
       this.state = {
       cocktails: [],
       lookingAtSingleCocktail: false,
-      currentCocktail: {},
-      userDrinks: []
+      currentCocktail: {}
       }
     }
 
@@ -104,6 +103,10 @@ export default class Dashboard extends Component {
         </div>
     }
   }
+
+  // renderUserDrinks = () => {
+  //   console.log
+  // }
 
   render(){
     if(!localStorage.token){

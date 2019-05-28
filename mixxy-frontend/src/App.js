@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import {withRouter} from 'react-router';
 import Dashboard from './containers/Dashboard'
 import './App.css';
+import UserDrinks from './containers/userDrinks'
 
 const USER_URL = "http://localhost:3000/api/v1/users"
 const LOGIN_URL = "http://localhost:3000/api/v1/login"
@@ -18,7 +19,8 @@ class App extends React.Component{
     this.state = {
       current_user: {},
       error: "",
-      userDrinks: {}
+      userDrinks: {},
+      hasClickedMyDrinks: false
     }
 
     this.createNewUser = this.createNewUser.bind(this)
@@ -84,14 +86,21 @@ class App extends React.Component{
     .then(res => res.json())
     .then(data => {
       this.setState({
-        userDrinks: data.user.drinks
+        userDrinks: data.user.drinks,
+        hasClickedMyDrinks: true
       })
+      console.log(data)
     })
   }
 
-  render(){
+  renderUserDrinks = () => {
+    const {userDrinks} = this.state
+    if(this.state.hasClickedMyDrinks === true) {
+      return <UserDrinks userDrinks={userDrinks}/>
+    }
+  }
 
-const {userDrinks} = this.state
+  render(){
 
     return (
       <div className="App">
@@ -100,12 +109,14 @@ const {userDrinks} = this.state
                                               logout={this.logout}
                                               displayUserDrinks={this.displayUserDrinks}
                                               />}/>
+
         <main class="main">
           <Route exact path="/login" render={() => <Login attemptLogin={this.attemptLogin}/>}/>
           <Route exact path="/user_signup" render={() => <NewUserForm createNewUser={this.createNewUser}/>}/>
-          <Route exact path="/dashboard" render={() =>  <Dashboard userDrinks={userDrinks}/>} />
-        </main>
+          {this.renderUserDrinks()}
+          <Route exact path="/dashboard" render={() =>  <Dashboard/>} />
 
+        </main>
       </div>
     );
   }
