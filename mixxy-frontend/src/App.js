@@ -5,6 +5,7 @@ import NewUserForm from './components/NewUserForm'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import {withRouter} from 'react-router';
 import Dashboard from './containers/Dashboard'
+import EditUserContainer from './containers/EditUserContainer'
 import './App.css';
 
 const USER_URL = "http://localhost:3000/api/v1/users"
@@ -24,6 +25,7 @@ class App extends React.Component{
     this.attemptLogin = this.attemptLogin.bind(this)
     this.setActiveUser = this.setActiveUser.bind(this)
     this.logout = this.logout.bind(this)
+    this.renewState();
   }
 
 
@@ -59,7 +61,8 @@ class App extends React.Component{
         current_user: data.user,
         error: ""
       })
-      localStorage.token = data.jwt
+      if(data.jwt){localStorage.token = data.jwt}
+
       this.props.history.push('/dashboard')
     }
   }
@@ -72,16 +75,29 @@ class App extends React.Component{
     this.props.history.push('/login')
   }
 
+  renewState(){
+    if(!localStorage.token){return}
+    fetch("http://localhost:3000/api/v1/profile", {
+      method: "GET",
+      headers: {
+        'Authorization': "Bearer " + localStorage.token
+      }
+    })
+    .then(res => res.json())
+    .then(this.setActiveUser)
+  }
+
   render(){
     return (
       <div className="App">
         <Route path='/' render={() => <Banner current_user={this.state.current_user}
                                               error={this.state.error}
                                               logout={this.logout}/>}/>
-        <main class="main">
+        <main className="main">
           <Route exact path="/login" render={() => <Login attemptLogin={this.attemptLogin}/>}/>
           <Route exact path="/user_signup" render={() => <NewUserForm createNewUser={this.createNewUser}/>}/>
           <Route exact path="/dashboard" render={() =>  <Dashboard />} />
+          <Route exact path="/update_profile" render={() => <EditUserContainer current_user={this.state.current_user}/>} />
         </main>
 
       </div>

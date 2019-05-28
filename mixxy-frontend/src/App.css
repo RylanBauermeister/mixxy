@@ -85,6 +85,14 @@
     border-radius: 0px !important;
 }
 
+.user-form {
+  background-color: rgba(189, 195, 199, .75);
+  padding: 25px;
+  width: 50%;
+  margin: auto
+
+}
+
 .title {
   font-size: 100px;
   color: orange;

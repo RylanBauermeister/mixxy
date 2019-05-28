@@ -2,11 +2,13 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :users, only: [:create]
+      resources :users, only: [:create, :update]
       post '/login', to: 'auth#login'
       get '/profile', to: 'users#profile'
       get '/shelf/:id', to: 'users#shelf'
-      get 'add_drink', to: 'users#addDrink'
+      post 'add_drink', to: 'users#addDrink'
+      delete 'remove_drink', to: 'users#removeDrink'
+      get 'authorize', to: 'auth#validate'
       get '/searchbyname', to: 'drinks#searchByName'
       get '/searchbyingredient', to: 'drinks#searchByIngredient'
     end
