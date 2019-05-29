@@ -33,6 +33,7 @@ class App extends React.Component{
     this.logout = this.logout.bind(this)
     this.updateUser = this.updateUser.bind(this)
     this.deleteUser = this.deleteUser.bind(this)
+    this.toggleMyDrinks = this.toggleMyDrinks.bind(this)
     this.renewState();
     this.displayUserDrinks();
   }
@@ -117,11 +118,16 @@ class App extends React.Component{
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
       this.setState({
         userDrinks: data.user.drinks,
         hasClickedMyDrinks: !this.state.hasClickedMyDrinks
       })
+    })
+  }
+
+  toggleMyDrinks() {
+    this.setState({
+      hasClickedMyDrinks: !this.state.hasClickedMyDrinks
     })
   }
 
@@ -155,11 +161,11 @@ class App extends React.Component{
   }
 
   setCurrentCocktail = (cocktail) => {
-    console.log("hello")
     this.setState({
       currentCocktail: cocktail,
       lookingAtSingleCocktail: true
     })
+    this.props.history.push('/my-drink/' + cocktail.id)
 
   }
 
@@ -167,6 +173,7 @@ class App extends React.Component{
     const {userDrinks} = this.state
     if(this.state.hasClickedMyDrinks === true) {
       return <UserDrinks
+              toggleDrinks={this.toggleMyDrinks}
               userDrinks={userDrinks}
               setCurrentCocktail={this.setCurrentCocktail}
               />
@@ -178,7 +185,7 @@ class App extends React.Component{
     if(this.state.lookingAtSingleCocktail === true) {
       return <UserDrinkDetailedView
               currentCocktail={currentCocktail}
-              returnMyDrinks={this.returnMyDrinks}
+              returnMyDrinks={this.returnMainMenu}
               />
     }
   }
@@ -211,7 +218,7 @@ class App extends React.Component{
         <main className="main">
           <Route exact path="/login" render={() => <Login attemptLogin={this.attemptLogin}/>}/>
           <Route exact path="/user_signup" render={() => <NewUserForm createNewUser={this.createNewUser}/>}/>
-          {this.renderDetailedView()}
+          <Route path='/my-drink' render={() => this.renderDetailedView()} />
           {this.renderUserDrinks()}
           <Route exact path="/dashboard" render={() =>  <Dashboard />} />
           <Route exact path="/update_profile" render={() => <EditUserContainer current_user={this.state.current_user}

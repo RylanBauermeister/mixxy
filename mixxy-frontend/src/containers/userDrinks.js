@@ -8,6 +8,7 @@ class UserDrinks extends React.Component {
       <div className="userCocktailItem">
       {this.props.userDrinks.map((drink)=>{
         return <UserCocktail
+                toggleDrinks={this.props.toggleDrinks}
                 drink={drink}
                 setCurrentCocktail={this.props.setCurrentCocktail}
                 />

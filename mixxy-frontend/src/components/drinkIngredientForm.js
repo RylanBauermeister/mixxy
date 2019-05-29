@@ -26,7 +26,7 @@ class DrinkIngredientForm extends React.Component {
   render(){
     return(
       <div>
-      <h1>Search for a drink by ingredient!</h1>
+      <h3>Search by ingredient</h3>
       <form onSubmit={this.handleSubmit}>
       <input
       type="text"

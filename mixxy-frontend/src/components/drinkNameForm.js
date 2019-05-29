@@ -26,7 +26,7 @@ class drinkNameForm extends React.Component {
   render(){
     return(
       <div>
-      <h1>Search for a drink by name!</h1>
+      <h3>Search by name</h3>
       <form onSubmit={this.handleSubmit}>
       <input
       type="text"

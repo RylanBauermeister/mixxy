@@ -13,43 +13,50 @@ export default class Dashboard extends Component {
   constructor(props){
     super(props)
       this.state = {
-      cocktails: [],
-      lookingAtSingleCocktail: false,
-      currentCocktail: {}
+        cocktails: [],
+        lookingAtSingleCocktail: false,
+        currentCocktail: {},
+        cocktailsAreLoading: false
       }
     }
 
   getDrinksName = (event) => {
+    this.setLoading()
     let searchedDrink = event.target.elements['searchTerm'].value
     fetch(nameURL + searchedDrink)
       .then(res => res.json())
       .then(data => {
         console.log(data)
         this.setState({
-          cocktails: data
+          cocktails: data,
+          cocktailsAreLoading: false
         })
       })
   }
 
   getDrinksIngredient = (event) => {
+    this.setLoading()
     let searchedDrink = event.target.elements['searchTerm'].value
     fetch(ingredientURL + searchedDrink)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         this.setState({
-          cocktails: data
+          cocktails: data,
+          cocktailsAreLoading: false
         })
       })
   }
 
   setCurrentCocktail = (cocktail) => {
-    console.log("hello")
     this.setState({
       currentCocktail: cocktail,
       lookingAtSingleCocktail: true
     })
 
+  }
+
+  setLoading(){
+    this.setState({cocktailsAreLoading: true})
   }
 
   returnMainMenu = () => {
@@ -74,11 +81,27 @@ export default class Dashboard extends Component {
     .then(data => {
       console.log(data)
     })
+  }
+
+  renderCocktails() {
+    if (!this.state.cocktailsAreLoading){
+      return  <CocktailsContainer cocktails={this.state.cocktails}
+                                  setCurrentCocktail={this.setCurrentCocktail}/>
+
+    } else {
+        return <div className="loading-dimmer ui segment">
+          <div className="ui active dimmer">
+            <div className="ui text loader">Finding Drinks...</div>
+          </div>
+        </div>
     }
 
 
+  }
+
+
   renderDetailedView = () => {
-    const {cocktails, currentCocktail} = this.state
+    const {currentCocktail} = this.state
     if(this.state.lookingAtSingleCocktail === true) {
       return <DetailedView
               currentCocktail={currentCocktail}
@@ -88,16 +111,12 @@ export default class Dashboard extends Component {
     } else {
       return <div className="App">
           <div className="cocktailsContainer">
-          <CocktailsContainer
-            cocktails={cocktails}
-            setCurrentCocktail={this.setCurrentCocktail}
-            />
+            {this.renderCocktails()}
           </div>
           <h1 className="title">Mixxy</h1>
           <div className="forms">
-          <DrinkNameForm getDrinksName={this.getDrinksName}/>
-
-          <DrinkIngredientForm getDrinksIngredient={this.getDrinksIngredient}/>
+            <DrinkNameForm getDrinksName={this.getDrinksName}/>
+            <DrinkIngredientForm getDrinksIngredient={this.getDrinksIngredient}/>
           <br/>
           </div>
         </div>

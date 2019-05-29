@@ -28,12 +28,14 @@ export default class Login extends Component {
         <form className="ui center form user-info-form" onSubmit={this.handleSubmit}>
           <div className="two fields">
             <div className="field">
-              <label>Username</label>
-              <input type="text" name="username" placeholder="username"/>
+              <label>Username
+                <input type="text" name="username" placeholder="username"/>
+              </label>
             </div>
             <div className="field">
-              <label>Password</label>
-              <input type="password" name="password" placeholder="password"/>
+              <label>Password
+                <input type="password" name="password" placeholder="password"/>
+              </label>
             </div>
           </div>
           <input className="ui submit button" type="submit" value="Log In"/>
