@@ -13,6 +13,7 @@ class UserDrinkDetailedView extends React.Component {
           </h4>
           <h4>Instructions: {this.props.currentCocktail.instructions}</h4>
           <button className="button" onClick={this.props.returnMyDrinks}>Go back to my drinks</button>
+          <button onClick={()=>this.props.deleteDrink(this.props.currentCocktail)}>Delete from my drinks</button>
       </div>
     )
   }

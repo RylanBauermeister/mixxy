@@ -7,7 +7,7 @@ Rails.application.routes.draw do
       get '/profile', to: 'users#profile'
       get '/shelf/:id', to: 'users#shelf'
       post 'add_drink', to: 'users#addDrink'
-      delete 'remove_drink', to: 'users#removeDrink'
+      delete 'remove_drink/:id', to: 'users#removeDrink'
       get 'authorize', to: 'auth#validate'
       get '/searchbyname', to: 'drinks#searchByName'
       get '/searchbyingredient', to: 'drinks#searchByIngredient'

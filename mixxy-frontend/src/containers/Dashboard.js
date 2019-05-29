@@ -74,6 +74,10 @@ export default class Dashboard extends Component {
     .then(data => {
       console.log(data)
     })
+    this.setState({
+      currentCocktail: null,
+      lookingAtSingleCocktail: false
+    })
     }
 
 
