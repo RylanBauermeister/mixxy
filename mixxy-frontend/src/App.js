@@ -223,7 +223,6 @@ class App extends React.Component{
       this.setState({
         currentCocktail: null,
         lookingAtSingleCocktail: false,
-        // hasClickedMyDrinks: false
       })
       this.displayUserDrinks()
     })
