@@ -202,6 +202,7 @@ class App extends React.Component{
                                               logout={this.logout}
                                               displayUserDrinks={this.displayUserDrinks}
                                               returnMainMenu={this.returnMainMenu}
+                                              onDrinks={this.state.hasClickedMyDrinks}
                                               />}/>
         <main className="main">
           <Route exact path="/login" render={() => <Login attemptLogin={this.attemptLogin}/>}/>
