@@ -33,7 +33,7 @@ class Api::V1::UsersController < ApplicationController
 
   def removeDrink
     @user = current_user
-    @drink = Drink.find(user_drink_params[:drink_id])
+    @drink = Drink.find(params[:id])
     if @user && @drink
       UserDrink.find_by(user: @user, drink: @drink).delete
       render json: { user: UserSerializer.new(@user)}, status: :accepted

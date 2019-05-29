@@ -144,21 +144,21 @@ class App extends React.Component{
     })
   }
 
-  deleteDrink = () => {
-    console.log("hello")
-    fetch("http://localhost:3000/api/v1/profile", {
+  deleteDrink = (drink) => {
+    const drinkId = drink.id
+    console.log(drink.id)
+    fetch("http://localhost:3000/api/v1/remove_drink/"+drinkId, {
       method: "DELETE",
       headers: {
         'Authorization': "Bearer " + localStorage.token
-      }
+      },
+      body: JSON.stringify({drink_id: drinkId})
     })
     .then(res => res.json())
     .then(data => {
       console.log(data)
     })
   }
-
-  //deletedrink isnt working
 
   render(){
 
