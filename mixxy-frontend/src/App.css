@@ -157,7 +157,7 @@
 
 .userCocktailItem {
   display:flex;
-  height: 250px;
+  height: 350px;
   overflow-x: scroll;
   margin-bottom: -15%;
   background-color: black;

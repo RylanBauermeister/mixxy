@@ -75,7 +75,8 @@ class App extends React.Component{
 
   logout(){
     this.setState({
-      current_user: {}
+      current_user: {},
+      hasClickedMyDrinks: false
     })
     delete localStorage.token
     this.props.history.push('/login')
@@ -125,6 +126,7 @@ class App extends React.Component{
       return <UserDrinkDetailedView
               currentCocktail={currentCocktail}
               returnMyDrinks={this.returnMyDrinks}
+              deleteDrink={this.deleteDrink}
               />
     }
   }
@@ -141,6 +143,22 @@ class App extends React.Component{
       hasClickedMyDrinks: false
     })
   }
+
+  deleteDrink = () => {
+    console.log("hello")
+    fetch("http://localhost:3000/api/v1/profile", {
+      method: "DELETE",
+      headers: {
+        'Authorization': "Bearer " + localStorage.token
+      }
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log(data)
+    })
+  }
+
+  //deletedrink isnt working
 
   render(){
 
