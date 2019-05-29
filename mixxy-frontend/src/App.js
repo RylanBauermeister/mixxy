@@ -155,7 +155,6 @@ class App extends React.Component{
   }
 
   setCurrentCocktail = (cocktail) => {
-    console.log("hello")
     this.setState({
       currentCocktail: cocktail,
       lookingAtSingleCocktail: true
@@ -201,7 +200,6 @@ class App extends React.Component{
 
   deleteDrink = (drink) => {
     const drinkId = drink.id
-    console.log(drink.id)
     fetch("http://localhost:3000/api/v1/remove_drink/"+ drinkId, {
       method: "DELETE",
       headers: {
@@ -211,12 +209,13 @@ class App extends React.Component{
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
     })
     this.setState({
       currentCocktail: null,
-      lookingAtSingleCocktail: false
+      lookingAtSingleCocktail: false,
+      hasClickedMyDrinks: false
     })
+
   }
 
   render(){
