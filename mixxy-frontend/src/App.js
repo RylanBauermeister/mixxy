@@ -195,7 +195,8 @@ class App extends React.Component{
   returnMyDrinks = () => {
     this.setState({
       currentCocktail: null,
-      lookingAtSingleCocktail: false
+      lookingAtSingleCocktail: false,
+      hasClickedMyDrinks: true
     })
   }
 
@@ -217,14 +218,37 @@ class App extends React.Component{
     })
     .then(res => res.json())
     .then(data => {
+      this.setState({
+        currentCocktail: null,
+        lookingAtSingleCocktail: false,
+        // hasClickedMyDrinks: false
+      })
+      this.displayUserDrinks()
     })
-    this.setState({
-      currentCocktail: null,
-      lookingAtSingleCocktail: false,
-      hasClickedMyDrinks: false
-    })
-
+    // this.setState({
+    //   currentCocktail: null,
+    //   lookingAtSingleCocktail: false,
+    //   // hasClickedMyDrinks: false
+    // })
+    // this.displayUserDrinks()
   }
+
+  // displayUserDrinks = () => {
+  //   if(!localStorage.token){return}
+  //   fetch("http://localhost:3000/api/v1/profile", {
+  //     method: "GET",
+  //     headers: {
+  //       'Authorization': "Bearer " + localStorage.token,
+  //     }
+  //   })
+  //   .then(res => res.json())
+  //   .then(data => {
+  //     this.setState({
+  //       userDrinks: data.user.drinks,
+  //       hasClickedMyDrinks: !this.state.hasClickedMyDrinks
+  //     })
+  //   })
+  // }
 
   render(){
 
