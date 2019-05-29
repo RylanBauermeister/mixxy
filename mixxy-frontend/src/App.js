@@ -34,6 +34,7 @@ class App extends React.Component{
     this.updateUser = this.updateUser.bind(this)
     this.deleteUser = this.deleteUser.bind(this)
     this.renewState();
+    this.displayUserDrinks();
   }
 
 
@@ -91,6 +92,18 @@ class App extends React.Component{
     this.props.history.push('/login')
   }
 
+  renewState(){
+  if(!localStorage.token){return}
+  fetch("http://localhost:3000/api/v1/profile", {
+    method: "GET",
+    headers: {
+      'Authorization': "Bearer " + localStorage.token
+    }
+  })
+  .then(res => res.json())
+  .then(data => this.setActiveUser(data, "soft"))
+}
+
   displayUserDrinks = () => {
     if(!localStorage.token){return}
     fetch("http://localhost:3000/api/v1/profile", {
@@ -100,7 +113,13 @@ class App extends React.Component{
       }
     })
     .then(res => res.json())
-    .then(data => {this.setActiveUser(data, "soft")})
+    .then(data => {
+      console.log(data)
+      this.setState({
+        userDrinks: data.user.drinks,
+        hasClickedMyDrinks: true
+      })
+    })
   }
 
   updateUser(user){
@@ -130,14 +149,6 @@ class App extends React.Component{
       }
     })
     .then( () => this.logout())
-    .then(data => {
-      this.setState({
-        userDrinks: data.user.drinks,
-        hasClickedMyDrinks: true
-      })
-      console.log(data)
-      this.setActiveUser(data)
-    })
   }
 
   setCurrentCocktail = (cocktail) => {
