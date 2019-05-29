@@ -26,20 +26,15 @@ class DrinkIngredientForm extends React.Component {
   render(){
     return(
       <div>
-      <h3>Search by ingredient</h3>
-      <form onSubmit={this.handleSubmit}>
-      <input
-      type="text"
-      name="searchTerm"
-      value={this.state.searchTerm}
-      onChange={this.handleChange}
-      placeholder="ingredient name"
-      />
-      <input
-      type="submit"
-      value="submit"
-      />
-      </form>
+        <h3>Search by ingredient</h3>
+        <form className="ui form" onSubmit={this.handleSubmit}>
+          <div className="ui action input">
+            <input type="text" name="searchTerm" value={this.state.searchTerm} onChange={this.handleChange} placeholder="ingredient name"/>
+            <button className="ui icon button" type="submit">
+              <i className="search icon"></i>
+            </button>
+          </div>
+        </form>
       </div>
     )
   }

@@ -12,8 +12,15 @@ class DetailedView extends React.Component {
             })}
           </h4>
           <h4>Instructions: {this.props.currentCocktail.instructions}</h4>
-          <button className="button" onClick={this.props.returnMainMenu}>Go back to drinks</button>
-          <button onClick={()=> this.props.addDrink(this.props.currentCocktail)}>Add drink</button>
+          <button className="ui left inverted green labeled icon button" onClick={this.props.returnMainMenu}>
+            <i class="arrow left icon"></i>
+            Go back to drinks
+          </button>
+          <button className="ui inverted right green labeled icon button" onClick={()=> this.props.addDrink(this.props.currentCocktail)}>
+            Save Drink
+            <i className="right glass martini icon"></i>
+          </button>
+
       </div>
     )
   }

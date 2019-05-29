@@ -195,14 +195,17 @@ class App extends React.Component{
   returnMyDrinks = () => {
     this.setState({
       currentCocktail: null,
-      lookingAtSingleCocktail: false
+      lookingAtSingleCocktail: false,
+      hasClickedMyDrinks: true
     })
+    this.props.history.push('/dashboard')
   }
 
   returnMainMenu = () => {
     this.setState({
-      hasClickedMyDrinks: false
-    })
+      hasClickedMyDrinks: false,
+      lookingAtSingleCocktail: false
+    }, () => console.log("Done!", this.state))
     this.props.history.push('/dashboard')
   }
 
@@ -216,8 +219,7 @@ class App extends React.Component{
       body: JSON.stringify({drink_id: drinkId})
     })
     .then(res => res.json())
-    .then(data => {
-    })
+    .then(this.returnMyDrinks)
     this.setState({
       currentCocktail: null,
       lookingAtSingleCocktail: false,
