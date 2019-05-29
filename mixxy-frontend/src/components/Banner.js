@@ -6,23 +6,43 @@ class Banner extends Component {
   constructor(props){
     super(props)
     this.state = {
-
+      active: this.props.onDrinks ? "drinks" : "main"
     }
+
+    this.selectMain = this.selectMain.bind(this)
+    this.selectDrinks = this.selectDrinks.bind(this)
   }
 
   userIsLoggedIn(){
     return this.props.current_user.username
   }
 
+  static getDerivedStateFromProps(props, state){
+    return {active: props.onDrinks ? "drinks" : "main"}
+  }
+
+  selectMain(ev){
+    this.setState({
+      active: "main"
+    })
+    this.props.returnMainMenu(ev)
+  }
+
+  selectDrinks(ev){
+    this.setState({
+      active: "drinks"
+    })
+    this.props.displayUserDrinks(ev)
+  }
 
   render(){
     return <div className="ui attached top">
 
       <div className="ui inverted pointing menu">
-        <a href={null} className="active item" onClick={this.props.returnMainMenu}>
+        <a href={null} className={this.state.active === "main" ? 'item active' : "item"} onClick={this.selectMain}>
           Home
         </a>
-        <a href={null} className="item" onClick={this.props.displayUserDrinks}>
+        <a href={null} className={this.state.active === "drinks" ? 'item active' : "item"} onClick={this.selectDrinks}>
           My Drinks
         </a>
         <div className="right menu">

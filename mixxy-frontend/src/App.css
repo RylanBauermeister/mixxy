@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Amatic+SC&display=swap');
+
+:root {
+  --site-font: 'Amatic SC', cursive;
+}
+
 .App {
   text-align: center;
 }
@@ -61,12 +67,13 @@
   border-radius: 50%;
   width: 70%;
   height: auto;
+  transition: 1s;
 }
 
 .cocktailItem {
   display:flex;
   height: 250px;
-  overflow-x: scroll;
+  overflow-x: auto;
 }
 
 .main {
@@ -74,15 +81,30 @@
   width:100%;
   height: 100%;
   min-height:calc(100vh - 61px);
-  background: url("picture/bar2.jpg") no-repeat center center fixed;
+  padding-top: 25px;
   background-size: cover;
   color: white;
   background-size: cover;
   background-attachment:fixed;
 }
 
+.main::before{
+  background: url("picture/bar2.jpg") no-repeat center center fixed;
+  background-size: cover;
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  opacity: 0.85;
+}
+
 .ui.menu {
     border-radius: 0px !important;
+    margin: 0px !important;
 }
 
 .user-form {
@@ -97,18 +119,8 @@
   font-size: 100px;
   color: orange;
   margin: 25px;
-  /* -webkit-animation: flash linear 3s infinite;
-	animation: flash linear 2.5s infinite;
-}
-@-webkit-keyframes flash {
-	25% { opacity: 1; }
-	50% { opacity: .1; }
-	100% { opacity: 1; }
-}
-@keyframes flash {
-	25% { opacity: 1; }
-	50% { opacity: .1; }
-	100% { opacity: 1; } */
+  font-family: var(--site-font);
+  text-shadow: 0 0 3px black;
 
 }
 
@@ -151,14 +163,22 @@
 .userCocktail {
   border-radius: 50%;
   flex: 0 0 250px;
-  margin-top: 5%;
+  cursor: pointer;
+  transition: 1s;
+}
 
+.cocktailImage:hover {
+  box-shadow: 0 0 20px 3px white;
+  transition: 1s;
 }
 
 .userCocktailItem {
   display:flex;
-  height: 350px;
-  overflow-x: scroll;
+  height: 250px;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  overflow-x: auto;
   margin-bottom: -15%;
   background-color: black;
   opacity: 0.8;

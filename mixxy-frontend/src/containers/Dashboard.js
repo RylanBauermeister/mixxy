@@ -97,7 +97,7 @@ export default class Dashboard extends Component {
             setCurrentCocktail={this.setCurrentCocktail}
             />
           </div>
-          <h1 className="title">Welcome to Mixxy!</h1>
+          <h1 className="title">Mixxy</h1>
           <div className="forms">
           <DrinkNameForm getDrinksName={this.getDrinksName}/>
 

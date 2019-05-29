@@ -12,7 +12,12 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
+    current_user.update(user_params)
+    render json: {user: UserSerializer.new(current_user)}, status: :ok
+  end
 
+  def destroy
+    current_user.delete
   end
 
   def shelf

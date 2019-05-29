@@ -50,7 +50,9 @@ export default class EditUserContainer extends Component {
       return <div>Loading...</div>
     } else {
       if(this.state.isLoggedIn){
-        return <EditUserForm current_user={this.props.current_user}/>;
+        return <EditUserForm current_user={this.props.current_user}
+                             updateUser={this.props.updateUser}
+                             deleteUser={this.props.deleteUser}/>;
       } else {
         return <Redirect to="/login" /> ;
       }

@@ -4,6 +4,7 @@ import Cocktail from '../components/cocktail'
 class CocktailsContainer extends React.Component {
 
   render(){
+    console.log(this.props)
     return(
       <div className="cocktailItem">{
         this.props.cocktails.map((cocktail)=>{
