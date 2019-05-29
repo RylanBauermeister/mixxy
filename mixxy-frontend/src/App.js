@@ -219,14 +219,17 @@ class App extends React.Component{
       body: JSON.stringify({drink_id: drinkId})
     })
     .then(res => res.json())
-    .then(this.returnMyDrinks)
-    this.setState({
-      currentCocktail: null,
-      lookingAtSingleCocktail: false,
-      hasClickedMyDrinks: false
+    .then(data => {
+      this.setState({
+        currentCocktail: null,
+        lookingAtSingleCocktail: false,
+        // hasClickedMyDrinks: false
+      })
+      this.displayUserDrinks()
     })
 
   }
+
 
   render(){
 
