@@ -86,7 +86,10 @@ class App extends React.Component{
 
   logout(){
     this.setState({
-      current_user: {}
+      current_user: {},
+      hasClickedMyDrinks: false,
+      currentCocktail: {},
+      lookingAtSingleCocktail: false
     })
     delete localStorage.token
     this.props.history.push('/login')
@@ -117,7 +120,7 @@ class App extends React.Component{
       console.log(data)
       this.setState({
         userDrinks: data.user.drinks,
-        hasClickedMyDrinks: true
+        hasClickedMyDrinks: !this.state.hasClickedMyDrinks
       })
     })
   }
@@ -191,6 +194,7 @@ class App extends React.Component{
     this.setState({
       hasClickedMyDrinks: false
     })
+    this.props.history.push('/dashboard')
   }
 
   render(){

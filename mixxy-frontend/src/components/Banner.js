@@ -18,7 +18,6 @@ class Banner extends Component {
   }
 
   static getDerivedStateFromProps(props, state){
-    console.log(props)
     return {active: props.onDrinks ? "drinks" : "main"}
   }
 
