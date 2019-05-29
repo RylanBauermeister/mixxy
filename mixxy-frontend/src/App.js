@@ -182,6 +182,7 @@ class App extends React.Component{
               deleteDrink={this.deleteDrink}
               />
     }
+
   }
 
   returnMyDrinks = () => {
@@ -201,7 +202,7 @@ class App extends React.Component{
   deleteDrink = (drink) => {
     const drinkId = drink.id
     console.log(drink.id)
-    fetch("http://localhost:3000/api/v1/remove_drink/"+drinkId, {
+    fetch("http://localhost:3000/api/v1/remove_drink/"+ drinkId, {
       method: "DELETE",
       headers: {
         'Authorization': "Bearer " + localStorage.token
@@ -211,6 +212,10 @@ class App extends React.Component{
     .then(res => res.json())
     .then(data => {
       console.log(data)
+    })
+    this.setState({
+      currentCocktail: null,
+      lookingAtSingleCocktail: false
     })
   }
 
@@ -228,8 +233,9 @@ class App extends React.Component{
         <main className="main">
           <Route exact path="/login" render={() => <Login attemptLogin={this.attemptLogin}/>}/>
           <Route exact path="/user_signup" render={() => <NewUserForm createNewUser={this.createNewUser}/>}/>
-          {this.renderDetailedView()}
+
           {this.renderUserDrinks()}
+          {this.renderDetailedView()}
           <Route exact path="/dashboard" render={() =>  <Dashboard />} />
           <Route exact path="/update_profile" render={() => <EditUserContainer current_user={this.state.current_user}
                                                                                updateUser={this.updateUser}
