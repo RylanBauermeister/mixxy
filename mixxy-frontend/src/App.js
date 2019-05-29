@@ -185,9 +185,11 @@ class App extends React.Component{
     if(this.state.lookingAtSingleCocktail === true) {
       return <UserDrinkDetailedView
               currentCocktail={currentCocktail}
-              returnMyDrinks={this.returnMainMenu}
+              returnMyDrinks={this.returnMyDrinks}
+              deleteDrink={this.deleteDrink}
               />
     }
+
   }
 
   returnMyDrinks = () => {
@@ -202,6 +204,26 @@ class App extends React.Component{
       hasClickedMyDrinks: false
     })
     this.props.history.push('/dashboard')
+  }
+
+  deleteDrink = (drink) => {
+    const drinkId = drink.id
+    fetch("http://localhost:3000/api/v1/remove_drink/"+ drinkId, {
+      method: "DELETE",
+      headers: {
+        'Authorization': "Bearer " + localStorage.token
+      },
+      body: JSON.stringify({drink_id: drinkId})
+    })
+    .then(res => res.json())
+    .then(data => {
+    })
+    this.setState({
+      currentCocktail: null,
+      lookingAtSingleCocktail: false,
+      hasClickedMyDrinks: false
+    })
+
   }
 
   render(){
