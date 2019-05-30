@@ -62,7 +62,7 @@ class Banner extends Component {
           {this.userIsLoggedIn() && <div className="item"><div onClick={this.props.logout} className="ui primary button">Log Out</div></div>}
           <div className="item">
             <div className="ui orange basic button" onClick={this.props.toggleAudio}>
-              {this.props.muted ? <i className="volume off icon"></i> : <i className="volume up icon"></i>}
+              {this.props.muted ? <i className="volume off icon" id="volume-icon"></i> : <i id="volume-icon" className="volume up icon"></i>}
             </div>
           </div>
         </div>

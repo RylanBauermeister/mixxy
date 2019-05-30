@@ -28,13 +28,13 @@ class Drink < ApplicationRecord
   end
 
   def self.searchByIngredient(ing)
-    response = HTTParty.get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=#{ing}")
-    data = JSON.parse(response.to_s)
+    response = HTTParty.get("https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=#{ing}").to_s
+    data = response == '' ? {} : response
     data['drinks'].each do |drink|
       drinkResponse = HTTParty.get("https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=#{drink['idDrink']}")
       drinkData = JSON.parse(drinkResponse.to_s)
       Drink.addDrinks(drinkData)
-    end
+    end if !data.empty?
 
     Drink.all.select { |drink|
       !drink.ingredients.where("lower(name) like ?", "%#{ing}%").empty?

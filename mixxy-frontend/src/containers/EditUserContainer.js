@@ -32,7 +32,7 @@ export default class EditUserContainer extends Component {
 
   setLoggedIn(data){
     if(data.message){
-      console.log(data.message)
+      return
     } else {
       this.setState({
         isLoading: false,

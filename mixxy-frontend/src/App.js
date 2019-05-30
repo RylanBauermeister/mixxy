@@ -41,7 +41,6 @@ class App extends React.Component{
     this.toggleAudio = this.toggleAudio.bind(this)
 
     this.renewState();
-    this.displayUserDrinks();
   }
 
   setFeedback(str){
@@ -224,7 +223,7 @@ class App extends React.Component{
     this.setState({
       hasClickedMyDrinks: false,
       lookingAtSingleCocktail: false
-    }, () => console.log("Done!", this.state))
+    })
     this.props.history.push('/dashboard')
   }
 

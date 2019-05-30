@@ -16,7 +16,6 @@ export default class EditUserForm extends Component {
       id: this.props.current_user.id,
       username: ev.target.elements['username'].value
     };
-    console.log(ev.target.elements)
     if(ev.target.elements['password'].value !== ""){
       user.password = ev.target.elements['password'].value
     }

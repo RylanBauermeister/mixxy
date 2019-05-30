@@ -26,6 +26,9 @@ export default class Dashboard extends Component {
     fetch(nameURL + searchedDrink)
       .then(res => res.json())
       .then(data => {
+        if(data.length === 0){
+          this.props.setFeedback("No cocktails found matching the given criteria")
+        }
         this.setState({
           cocktails: data,
           cocktailsAreLoading: false
@@ -39,6 +42,9 @@ export default class Dashboard extends Component {
     fetch(ingredientURL + searchedDrink)
       .then(res => res.json())
       .then(data => {
+        if(data.length === 0){
+          this.props.setFeedback("No cocktails found matching the given criteria")
+        }
         this.setState({
           cocktails: data,
           cocktailsAreLoading: false
@@ -83,14 +89,21 @@ export default class Dashboard extends Component {
   }
 
   renderCocktails() {
-    if (!this.state.cocktailsAreLoading){
-      return  <CocktailsContainer cocktails={this.state.cocktails}
-                                  setCurrentCocktail={this.setCurrentCocktail}/>
+    if(this.state.cocktails.length === 0 && !this.state.cocktailsAreLoading){
+      return null
+    } else if (!this.state.cocktailsAreLoading){
+      return  <div className="cocktailsContainer">
+        <h2 className="card-title">Found Cocktails</h2>
+        <CocktailsContainer cocktails={this.state.cocktails}
+                                    setCurrentCocktail={this.setCurrentCocktail}/>
+      </div>
 
     } else {
-        return <div className="loading-dimmer ui segment">
-          <div className="ui active dimmer">
-            <div className="ui text loader">Finding Drinks...</div>
+        return <div className="cocktailsContainer">
+          <div className="loading-dimmer ui segment">
+            <div className="ui active dimmer">
+              <div className="ui text loader">Finding Drinks...</div>
+            </div>
           </div>
         </div>
     }
@@ -109,9 +122,7 @@ export default class Dashboard extends Component {
               />
     } else {
       return <div className="App">
-          <div className="cocktailsContainer">
             {this.renderCocktails()}
-          </div>
           <h1 className="title">Mixxy</h1>
           <div className="forms">
             <DrinkNameForm getDrinksName={this.getDrinksName}/>
@@ -122,10 +133,6 @@ export default class Dashboard extends Component {
     }
   }
 
-  // renderUserDrinks = () => {
-  //   console.log
-  // }
-
   render(){
     if(!localStorage.token){
       return <Redirect to="/login" />
@@ -133,7 +140,7 @@ export default class Dashboard extends Component {
 
     return (
       <div>
-      
+
         {this.renderDetailedView()}
       </div>
     );
