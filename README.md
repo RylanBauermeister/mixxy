@@ -68,7 +68,9 @@ Feel free to use Mixxy, or its associated code if you wish.  We're fine with it 
 
 ## Sources
 Music: [SensualMusic8](https://sensualmusic8.wixsite.com)
+
 Favicon: [Cocktail shaker](https://visualpharm.com/)
+
 API: [TheCocktailDB](https://www.thecocktaildb.com/)
 
 ## Licensing
