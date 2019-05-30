@@ -2,7 +2,7 @@ import React from 'react';
 import Login from './components/login';
 import Banner from './components/Banner'
 import NewUserForm from './components/NewUserForm'
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import {withRouter} from 'react-router';
 import Dashboard from './containers/Dashboard'
 import EditUserContainer from './containers/EditUserContainer'

@@ -8,6 +8,7 @@ class CocktailsContainer extends React.Component {
       <div className="cocktailItem">{
         this.props.cocktails.map((cocktail)=>{
           return <Cocktail
+                  key={"display-"+cocktail.name+"-"+cocktail.id}
                   cocktail={cocktail}
                   setCurrentCocktail={this.props.setCurrentCocktail}
                   />

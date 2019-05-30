@@ -21,7 +21,7 @@ class UserCocktail extends React.Component {
     return(
     <div className="userCocktail" onClick={this.viewCocktail}>
     <h2 className="cocktail-title">{this.trim(this.props.drink.name)}</h2>
-    <img className="cocktailImage" src={this.props.drink.img_url}/>
+    <img className="cocktailImage" src={this.props.drink.img_url} alt={this.props.drink.name}/>
     </div>
     )
   }

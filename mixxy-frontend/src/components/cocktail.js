@@ -8,7 +8,7 @@ class Cocktail extends React.Component {
            onClick={() => this.props.setCurrentCocktail(this.props.cocktail)}
             >
           <h3>{this.props.cocktail.name}</h3>
-          <img className="cocktailImage" src={this.props.cocktail.img_url}/>
+          <img className="cocktailImage" src={this.props.cocktail.img_url} alt={this.props.cocktail.name}/>
 
       </div>
     )

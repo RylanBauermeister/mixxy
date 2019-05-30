@@ -39,10 +39,10 @@ class Banner extends Component {
     return <div className="ui attached top">
 
       <div className="ui inverted pointing menu">
-        <a href={null} className={this.state.active === "main" ? 'item active' : "item"} onClick={this.selectMain}>
+        <a href="#/" className={this.state.active === "main" ? 'item active' : "item"} onClick={this.selectMain}>
           Home
         </a>
-        <a href={null} className={this.state.active === "drinks" ? 'item active' : "item"} onClick={this.selectDrinks}>
+        <a href="#/" className={this.state.active === "drinks" ? 'item active' : "item"} onClick={this.selectDrinks}>
           My Drinks
         </a>
         <div className="right menu">

@@ -26,7 +26,6 @@ export default class Dashboard extends Component {
     fetch(nameURL + searchedDrink)
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         this.setState({
           cocktails: data,
           cocktailsAreLoading: false
