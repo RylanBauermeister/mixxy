@@ -1,5 +1,5 @@
 # Mixxy
-#### ~A Playful React App for Finding and Storing Cocktails~
+#### A Playful React App for Finding and Storing Cocktails
 
 Mixxy is a lightweight showcase of various react features, encapsulated in the shell of a cocktail search application.
 
