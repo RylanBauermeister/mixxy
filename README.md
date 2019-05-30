@@ -10,6 +10,7 @@ Its features include:
   - React Routing for situational element display
   - Persistent linking of drinks to a user profile
   - Utilization of an iframe to add site music
+  - Use of Semantic UI CSS across a site
 
 ## Setup
 
@@ -64,6 +65,11 @@ Feel free to use Mixxy, or its associated code if you wish.  We're fine with it 
 ## Creators
 - Rylan Bauermeister
 - Chris Cable
+
+## Sources
+Music: [SensualMusic8](https://sensualmusic8.wixsite.com)
+Favicon: [Cocktail shaker](https://visualpharm.com/)
+API: [TheCocktailDB](https://www.thecocktaildb.com/)
 
 ## Licensing
 MIT
