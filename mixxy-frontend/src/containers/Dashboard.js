@@ -79,7 +79,7 @@ export default class Dashboard extends Component {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data)
+      this.props.setFeedback(`Added ${cocktail.name} to "My Drinks"`)
     })
   }
 

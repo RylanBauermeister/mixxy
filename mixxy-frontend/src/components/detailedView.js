@@ -5,7 +5,7 @@ class DetailedView extends React.Component {
   render(){
     return(
       <div className="detailedView">
-          <h1>{this.props.currentCocktail.name}</h1>
+          <h1 className="card-title">{this.props.currentCocktail.name}</h1>
           <img className="detailedViewImg" src={this.props.currentCocktail.img_url}/>
           <h4>Ingredients: {this.props.currentCocktail.ingredients.map((ingredient)=>{
               return <li>{ingredient.name}: {ingredient.amount}</li>

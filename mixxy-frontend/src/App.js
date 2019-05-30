@@ -21,6 +21,7 @@ class App extends React.Component{
     this.state = {
       current_user: {},
       error: "",
+      feedback: "",
       userDrinks: [],
       hasClickedMyDrinks: false,
       currentCocktail: {},
@@ -34,10 +35,26 @@ class App extends React.Component{
     this.updateUser = this.updateUser.bind(this)
     this.deleteUser = this.deleteUser.bind(this)
     this.toggleMyDrinks = this.toggleMyDrinks.bind(this)
+    this.setError = this.setError.bind(this)
+    this.setFeedback = this.setFeedback.bind(this)
+
     this.renewState();
     this.displayUserDrinks();
   }
 
+  setFeedback(str){
+    this.setState({
+      feedback: str
+    })
+    setTimeout(() => this.setState({feedback: ""}), 1500)
+  }
+
+  setError(str){
+    this.setState({
+      error: str
+    })
+    setTimeout(() => this.setState({error: ""}), 1500)
+  }
 
   createNewUser(user){
     fetch(USER_URL, {
@@ -224,6 +241,7 @@ class App extends React.Component{
         currentCocktail: null,
         lookingAtSingleCocktail: false,
       })
+      this.setError(`Deleted ${drink.name} from drinks`)
       this.displayUserDrinks()
     })
 
@@ -236,6 +254,7 @@ class App extends React.Component{
       <div className="App">
         <Route path='/' render={() => <Banner current_user={this.state.current_user}
                                               error={this.state.error}
+                                              feedback={this.state.feedback}
                                               logout={this.logout}
                                               displayUserDrinks={this.displayUserDrinks}
                                               returnMainMenu={this.returnMainMenu}
@@ -246,7 +265,7 @@ class App extends React.Component{
           <Route exact path="/user_signup" render={() => <NewUserForm createNewUser={this.createNewUser}/>}/>
           <Route path='/my-drink' render={() => this.renderDetailedView()} />
           {this.renderUserDrinks()}
-          <Route exact path="/dashboard" render={() =>  <Dashboard />} />
+          <Route exact path="/dashboard" render={() =>  <Dashboard setFeedback={this.setFeedback}/>} />
           <Route exact path="/update_profile" render={() => <EditUserContainer current_user={this.state.current_user}
                                                                                updateUser={this.updateUser}
                                                                                deleteUser={this.deleteUser}/>} />

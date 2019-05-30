@@ -63,7 +63,8 @@ class Banner extends Component {
 
         </div>
       </div>
-      {this.props.error !== "" && <div className="error-message">Invalid Username/Password Combination</div>}
+      {this.props.error !== "" && <div className="error-message">{this.props.error}</div>}
+      {this.props.feedback !== "" && <div className="feedback-message">{this.props.feedback}</div>}
     </div>;
   }
 }

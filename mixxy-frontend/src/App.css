@@ -42,7 +42,22 @@
   background-color: red;
   line-height: 3em;
   color: white;
+  animation: fadein 1.5s;
 }
+
+.feedback-message {
+  background-color: green;
+  line-height: 3em;
+  color: white;
+  animation: fadein 1.5s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
 
 .user-info-form {
   margin: 20px auto;
