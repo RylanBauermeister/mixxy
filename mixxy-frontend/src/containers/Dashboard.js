@@ -133,6 +133,7 @@ export default class Dashboard extends Component {
 
     return (
       <div>
+      
         {this.renderDetailedView()}
       </div>
     );
