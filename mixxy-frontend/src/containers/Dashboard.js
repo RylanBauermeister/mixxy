@@ -134,7 +134,7 @@ export default class Dashboard extends Component {
 
     return (
       <div>
-        <iframe width="0" height="0" src="https://www.youtube.com/embed/dGTgBVgRfJI?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      
         {this.renderDetailedView()}
       </div>
     );
