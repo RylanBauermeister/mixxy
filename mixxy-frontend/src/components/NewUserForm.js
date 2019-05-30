@@ -23,7 +23,7 @@ export default class NewUserForm extends Component {
 
 
   render(){
-    return <div>
+    return <div className="user-form">
             <h2 className="title subtitle">Create An Account With Us</h2>
             <form className="ui center form user-info-form" onSubmit={this.handleSubmit}>
               <div className="two fields">
@@ -38,7 +38,7 @@ export default class NewUserForm extends Component {
                   </label>
                 </div>
               </div>
-              <input className="ui submit button" type="submit" value="Create Account"/>
+              <input className="ui primary submit button" type="submit" value="Create Account"/>
             </form>
           </div>
   }
