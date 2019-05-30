@@ -25,7 +25,8 @@ class App extends React.Component{
       userDrinks: [],
       hasClickedMyDrinks: false,
       currentCocktail: {},
-      lookingAtSingleCocktail: false
+      lookingAtSingleCocktail: false,
+      muted: false
     }
 
     this.createNewUser = this.createNewUser.bind(this)
@@ -37,6 +38,7 @@ class App extends React.Component{
     this.toggleMyDrinks = this.toggleMyDrinks.bind(this)
     this.setError = this.setError.bind(this)
     this.setFeedback = this.setFeedback.bind(this)
+    this.toggleAudio = this.toggleAudio.bind(this)
 
     this.renewState();
     this.displayUserDrinks();
@@ -247,6 +249,12 @@ class App extends React.Component{
 
   }
 
+  toggleAudio() {
+    this.setState({
+      muted: !this.state.muted
+    })
+  }
+
 
   render(){
 
@@ -259,6 +267,8 @@ class App extends React.Component{
                                               displayUserDrinks={this.displayUserDrinks}
                                               returnMainMenu={this.returnMainMenu}
                                               onDrinks={this.state.hasClickedMyDrinks}
+                                              muted={this.state.muted}
+                                              toggleAudio={this.toggleAudio}
                                               />}/>
         <main className="main">
           <Route exact path="/login" render={() => <Login attemptLogin={this.attemptLogin}/>}/>
@@ -270,7 +280,7 @@ class App extends React.Component{
                                                                                updateUser={this.updateUser}
                                                                                deleteUser={this.deleteUser}/>} />
         </main>
-          <iframe width="0" height="0" src="https://www.youtube.com/embed/dGTgBVgRfJI?autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          {!this.state.muted && <iframe title="site-music" src="https://www.youtube.com/embed/dGTgBVgRfJI?autoplay=1" allow="autoplay"></iframe>}
       </div>
     );
   }
